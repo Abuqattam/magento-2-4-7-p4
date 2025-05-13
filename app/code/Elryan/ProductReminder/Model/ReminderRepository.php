@@ -9,26 +9,16 @@ use Elryan\ProductReminder\Model\ResourceModel\Reminder\CollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\Framework\Api\SearchCriteriaBuilder;
 use Psr\Log\LoggerInterface;
 
 class ReminderRepository implements ReminderRepositoryInterface
 {
-    protected $reminderResource;
-    protected $reminderFactory;
-    protected $collectionFactory;
-    protected $logger;
-
     public function __construct(
-        ReminderResource $reminderResource,
-        ReminderFactory $reminderFactory,
-        CollectionFactory $collectionFactory,
-        LoggerInterface $logger
+        protected ReminderResource $reminderResource,
+        protected ReminderFactory $reminderFactory,
+        protected CollectionFactory $collectionFactory,
+        protected LoggerInterface $logger
     ) {
-        $this->reminderResource = $reminderResource;
-        $this->reminderFactory = $reminderFactory;
-        $this->collectionFactory = $collectionFactory;
-        $this->logger = $logger;
     }
 
     public function save(ReminderInterface $reminder): ReminderInterface
