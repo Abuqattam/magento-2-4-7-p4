@@ -3,4 +3,13 @@
     <preference for="Elryan\ProductReminder\Api\Data\ReminderInterface" type="Elryan\ProductReminder\Model\Reminder" />
     <preference for="Elryan\ProductReminder\Api\ReminderManagementInterface" type="Elryan\ProductReminder\Model\ReminderManagement" />
     <preference for="Elryan\ProductReminder\Api\ReminderRepositoryInterface" type="Elryan\ProductReminder\Model\ReminderRepository" />
+
+    <type name="Elryan\ProductReminder\Logger\ProductReminderLogger">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="custom" xsi:type="object">Elryan\ProductReminder\Logger\ProductReminderHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

@@ -14,7 +14,7 @@
                 </field>
 
                 <field id="email_sender" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Email Sender Address</label>
+                    <label>Sender Email Address</label>
                     <validate>email</validate>
                 </field>
 
