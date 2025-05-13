@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi/etc/webapi.xsd">
+
+    <route method="POST" url="/V1/product-reminder">
+        <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="setReminder"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Get Reminders for Customer -->
+    <route method="GET" url="/V1/product-reminder/:customer_id">
+        <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="getRemindersByCustomerId"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Delete Reminder -->
+    <route method="DELETE" url="/V1/product-reminder/:id">
+        <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="deleteReminder"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+</routes>
+
+
