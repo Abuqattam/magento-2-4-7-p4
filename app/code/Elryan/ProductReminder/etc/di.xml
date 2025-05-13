@@ -2,4 +2,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Elryan\ProductReminder\Api\Data\ReminderInterface" type="Elryan\ProductReminder\Model\Reminder" />
     <preference for="Elryan\ProductReminder\Api\ReminderManagementInterface" type="Elryan\ProductReminder\Model\ReminderManagement" />
+    <preference for="Elryan\ProductReminder\Api\ReminderRepositoryInterface" type="Elryan\ProductReminder\Model\ReminderRepository" />
 </config>
