@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="product_reminder" resource="default" engine="innodb" comment="Product Reminder Table">
+        <column name="id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Reminder ID" />
+        <column name="customer_id" xsi:type="int" unsigned="true" nullable="false" comment="Customer ID" />
+        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" comment="Product ID" />
+        <column name="reminder_date" xsi:type="date" nullable="false" comment="Reminder Date" />
+        <column name="status" xsi:type="varchar" length="20" nullable="false" default="Pending" comment="Reminder Status" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_PRODUCT_REMINDER_CUSTOMER" table="product_reminder" column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="FK_PRODUCT_REMINDER_PRODUCT" table="product_reminder" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE" />
+        <index referenceId="IDX_PRODUCT_REMINDER_CUSTOMER">
+            <column name="customer_id" />
+        </index>
+        <index referenceId="IDX_PRODUCT_REMINDER_PRODUCT" >
+            <column name="product_id" />
+        </index>
+    </table>
+</schema>
