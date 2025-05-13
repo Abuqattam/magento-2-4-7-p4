@@ -3,12 +3,12 @@
 namespace Elryan\ProductReminder\Cron;
 
 use Elryan\ProductReminder\Helper\Data as ReminderHelper;
+use Elryan\ProductReminder\Logger\ProductReminderLogger;
+use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Mail\Template\TransportBuilder;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\Customer\Api\CustomerRepositoryInterface;
-use Elryan\ProductReminder\Logger\ProductReminderLogger;
+use Magento\Store\Model\StoreManagerInterface;
 
 class SendReminders
 {
@@ -88,27 +88,28 @@ class SendReminders
 
     protected function sendEmail(string $customerEmail, int $productId)
     {
-        $senderEmail = $this->reminderHelper->getEmailSender();
-        $defaultMessage = $this->reminderHelper->getDefaultMessage();
-        $storeId = $this->storeManager->getStore()->getId();
-
-        $emailVars = [
-            'customer_email' => $customerEmail,
-            'product_id' => $productId,
-            'message' => $defaultMessage,
-        ];
-
-        $transport = $this->transportBuilder
-            ->setTemplateIdentifier('elryan_product_reminder_email_template')
-            ->setTemplateOptions([
-                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-                'store' => $storeId,
-            ])
-            ->setTemplateVars($emailVars)
-            ->setFrom(['name' => 'Product Reminder', 'email' => $senderEmail])
-            ->addTo($customerEmail)
-            ->getTransport();
-
-        $transport->sendMessage();
+        //        $senderEmail = $this->reminderHelper->getEmailSender();
+        //        $defaultMessage = $this->reminderHelper->getDefaultMessage();
+        //        $storeId = $this->storeManager->getStore()->getId();
+        //
+        //        $emailVars = [
+        //            'customer_email' => $customerEmail,
+        //            'product_id' => $productId,
+        //            'message' => $defaultMessage,
+        //        ];
+        //
+        //        $transport = $this->transportBuilder
+        //            ->setTemplateIdentifier('elryan_product_reminder_email_template')
+        //            ->setTemplateOptions([
+        //                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+        //                'store' => $storeId,
+        //            ])
+        //            ->setTemplateVars($emailVars)
+        //            ->setFrom(['name' => 'Product Reminder', 'email' => $senderEmail])
+        //            ->addTo($customerEmail)
+        //            ->setSubject("Your Product Reminder")
+        //            ->getTransport();
+        //
+        //        $transport->sendMessage();
     }
 }
