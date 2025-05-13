@@ -4,7 +4,7 @@
     <route method="POST" url="/V1/product-reminder">
         <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="setReminder"/>
         <resources>
-            <resource ref="anonymous"/>
+            <resource ref="Elryan_ProductReminder::reminder_control"/>
         </resources>
     </route>
 
@@ -12,7 +12,7 @@
     <route method="GET" url="/V1/product-reminder/:customer_id">
         <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="getRemindersByCustomerId"/>
         <resources>
-            <resource ref="anonymous"/>
+            <resource ref="Elryan_ProductReminder::reminder_control"/>
         </resources>
     </route>
 
@@ -20,7 +20,7 @@
     <route method="DELETE" url="/V1/product-reminder/:id">
         <service class="Elryan\ProductReminder\Api\ReminderManagementInterface" method="deleteReminder"/>
         <resources>
-            <resource ref="anonymous"/>
+            <resource ref="Elryan_ProductReminder::reminder_control"/>
         </resources>
     </route>
 
