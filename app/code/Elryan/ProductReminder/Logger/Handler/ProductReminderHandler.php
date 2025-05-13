@@ -1,9 +1,9 @@
 <?php
 
-namespace Elryan\ProductReminder\Logger;
+namespace Elryan\ProductReminder\Logger\Handler;
 
-use Monolog\Logger;
 use Magento\Framework\Logger\Handler\Base;
+use Monolog\Logger;
 
 class ProductReminderHandler extends Base
 {
