@@ -47,10 +47,8 @@ class ReminderRepository implements ReminderRepositoryInterface
 
     public function getByCustomerId(int $customerId): array
     {
-        $collection = $this->collectionFactory->create()
-            ->addFieldToFilter('customer_id', $customerId);
-
-        return $collection->getItems();
+        $collection = $this->getList(['customer_id' => $customerId]);
+        return $collection;
     }
 
     public function delete(ReminderInterface $reminder): bool
