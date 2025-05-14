@@ -27,13 +27,6 @@ interface ReminderRepositoryInterface
      */
     public function getById(int $id): ReminderInterface;
 
-    /**
-     * Get all reminders for a customer.
-     *
-     * @param int $customerId
-     * @return ReminderInterface[]
-     */
-    public function getByCustomerId(int $customerId): array;
 
     /**
      * Delete a reminder.
@@ -44,13 +37,11 @@ interface ReminderRepositoryInterface
      */
     public function delete(ReminderInterface $reminder): bool;
 
+
     /**
-     * Delete a reminder by ID.
-     *
-     * @param int $id
-     * @return bool
-     * @throws CouldNotDeleteException
-     * @throws NoSuchEntityException
+     * @param array $criteria
+     * @return array
      */
-    public function deleteById(int $id): bool;
+
+    public function getList(array $criteria): array;
 }
