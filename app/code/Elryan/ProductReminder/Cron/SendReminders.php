@@ -42,6 +42,8 @@ class SendReminders
         $connection = $this->resource->getConnection();
         $reminderTable = $connection->getTableName('product_reminder');
         $currentDate = $this->dateTime->gmtDate('Y-m-d');
+        $nextWeekDate = $this->dateTime->gmtDate('Y-m-d', strtotime('+7 days', strtotime($currentDate)));
+
 
         try {
             // Start the transaction
@@ -50,7 +52,7 @@ class SendReminders
             // Select reminders for today
             $select = $connection->select()
                 ->from($reminderTable)
-                ->where('reminder_date <= ?', $currentDate)
+                ->where('reminder_date <= ?', $nextWeekDate)
                 ->where('status = ?', 'Pending');
 
             $reminders = $connection->fetchAll($select);
