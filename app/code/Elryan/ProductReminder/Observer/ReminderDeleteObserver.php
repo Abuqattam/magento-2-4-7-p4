@@ -16,6 +16,13 @@ class ReminderDeleteObserver implements ObserverInterface
 
     }
 
+    /**
+     * Executes the observer logic for handling reminders associated with a deleted product.
+     *
+     * @param Observer $observer The observer instance containing event data.
+     * @return void
+     */
+
     public function execute(Observer $observer)
     {
         try {
