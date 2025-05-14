@@ -4,7 +4,9 @@ namespace Elryan\ProductReminder\Cron;
 
 use Elryan\ProductReminder\Helper\Data as ReminderHelper;
 use Elryan\ProductReminder\Logger\ProductReminderLogger;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Framework\App\Area;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\Stdlib\DateTime\DateTime;
@@ -19,10 +21,15 @@ class SendReminders
         protected StoreManagerInterface $storeManager,
         protected DateTime $dateTime,
         protected CustomerRepositoryInterface $customerRepository,
+        protected ProductRepositoryInterface $productRepository,
         protected ProductReminderLogger $logger
     ) {
 
     }
+
+    /**
+     * @return void
+     */
 
     public function execute()
     {
@@ -68,8 +75,6 @@ class SendReminders
                         ['id = ?' => $reminderId]
                     );
 
-                    $this->logger->info("Reminder email sent to {$customerEmail} for Product ID {$productId}");
-
                 } catch (\Exception $e) {
                     $this->logger->error("Error sending email for Reminder ID {$reminderId}: " . $e->getMessage());
                 }
@@ -86,30 +91,46 @@ class SendReminders
         }
     }
 
+    /**
+     * @param string $customerEmail
+     * @param int $productId
+     * @return void
+     */
+
     protected function sendEmail(string $customerEmail, int $productId)
     {
-        //        $senderEmail = $this->reminderHelper->getEmailSender();
-        //        $defaultMessage = $this->reminderHelper->getDefaultMessage();
-        //        $storeId = $this->storeManager->getStore()->getId();
-        //
-        //        $emailVars = [
-        //            'customer_email' => $customerEmail,
-        //            'product_id' => $productId,
-        //            'message' => $defaultMessage,
-        //        ];
-        //
-        //        $transport = $this->transportBuilder
-        //            ->setTemplateIdentifier('elryan_product_reminder_email_template')
-        //            ->setTemplateOptions([
-        //                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-        //                'store' => $storeId,
-        //            ])
-        //            ->setTemplateVars($emailVars)
-        //            ->setFrom(['name' => 'Product Reminder', 'email' => $senderEmail])
-        //            ->addTo($customerEmail)
-        //            ->setSubject("Your Product Reminder")
-        //            ->getTransport();
-        //
-        //        $transport->sendMessage();
+        try {
+            /* 1. Load the product */
+            $product      = $this->productRepository->getById($productId);
+            $productName  = $product->getName();
+
+            /* 2. Build variables for the template */
+            $emailVars = [
+                'customer_email' => $customerEmail,
+                'product_name'   => $productName,
+                'message'        => $this->reminderHelper->getDefaultMessage(),
+            ];
+
+            /* 4. Compose and send */
+            $storeId   = $this->storeManager->getStore()->getId();
+            $transport = $this->transportBuilder
+                ->setTemplateIdentifier('reminder_email_template')
+                ->setTemplateOptions([
+                    'area'  => Area::AREA_FRONTEND,
+                    'store' => $storeId
+                ])
+                ->setTemplateVars($emailVars)
+                ->setFromByScope('general', $storeId)
+                ->addTo($customerEmail)
+                ->getTransport();
+
+            $transport->sendMessage();
+
+            $this->logger->info("Reminder email sent to {$customerEmail} for Product ID {$productId}");
+
+        } catch (\Exception $e) {
+            // Always log mail failures so they don't fail silently
+            $this->logger->error(__('Reminder e‑mail failed: %1', $e->getMessage()));
+        }
     }
 }

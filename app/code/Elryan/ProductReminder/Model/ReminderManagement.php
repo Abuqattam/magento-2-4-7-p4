@@ -6,7 +6,6 @@ use Elryan\ProductReminder\Api\Data\ReminderInterface;
 use Elryan\ProductReminder\Api\Data\ReminderInterfaceFactory;
 use Elryan\ProductReminder\Api\ReminderManagementInterface;
 use Elryan\ProductReminder\Api\ReminderRepositoryInterface;
-use Psr\Log\LoggerInterface;
 
 class ReminderManagement implements ReminderManagementInterface
 {
@@ -14,13 +13,11 @@ class ReminderManagement implements ReminderManagementInterface
     /**
      * @param ReminderRepositoryInterface $reminderRepository
      * @param ReminderInterfaceFactory $reminderFactory
-     * @param LoggerInterface $logger
      */
 
     public function __construct(
         protected ReminderRepositoryInterface $reminderRepository,
-        protected ReminderInterfaceFactory $reminderFactory,
-        protected LoggerInterface $logger
+        protected ReminderInterfaceFactory $reminderFactory
     ) {
     }
 

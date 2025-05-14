@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/email_templates.xsd">
+    <template id="reminder_email_template"
+              label="Product Reminder Email"
+              file="reminder_email.html"
+              type="html"
+              module="Elryan_ProductReminder"
+              area="frontend"/>
+</config>
