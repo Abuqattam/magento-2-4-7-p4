@@ -3,13 +3,12 @@
 namespace Elryan\ProductReminder\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
     const XML_PATH_REMINDER_ENABLED = 'product_reminder/general/enable';
     const XML_PATH_EMAIL_SENDER = 'product_reminder/general/email_sender';
-    const XML_PATH_DEFAULT_MESSAGE = 'product_reminder/general/default_message';
+    const XML_PATH_REMINDER_EMAIL_TEMPLATE_ID = 'product_reminder/general/reminder_email_template_id';
 
     /**
      * @return bool
@@ -20,22 +19,13 @@ class Data extends AbstractHelper
         return $this->scopeConfig->isSetFlag(self::XML_PATH_REMINDER_ENABLED);
     }
 
-
     /**
-     * @return string
+     * @return mixed
      */
 
-    public function getEmailSender(): string
+    public function getReminderEmailTemplateId()
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_EMAIL_SENDER);
+        return $this->scopeConfig->getValue(self::XML_PATH_REMINDER_EMAIL_TEMPLATE_ID);
     }
 
-    /**
-     * @return string
-     */
-
-    public function getDefaultMessage(): string
-    {
-        return $this->scopeConfig->getValue(self::XML_PATH_DEFAULT_MESSAGE);
-    }
 }

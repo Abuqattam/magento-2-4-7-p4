@@ -13,13 +13,10 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
 
-                <field id="email_sender" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Sender Email Address</label>
-                    <validate>email</validate>
-                </field>
-
-                <field id="default_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Default Reminder Message</label>
+                <field id="reminder_email_template_id" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Reminder Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>Select the custom email template to use for product reminders.</comment>
                 </field>
 
             </group>

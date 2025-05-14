@@ -100,21 +100,20 @@ class SendReminders
     protected function sendEmail(string $customerEmail, int $productId)
     {
         try {
-            /* 1. Load the product */
+
             $product      = $this->productRepository->getById($productId);
             $productName  = $product->getName();
+            $reminderEmailTemplateId = $this->reminderHelper->getReminderEmailTemplateId();
 
-            /* 2. Build variables for the template */
             $emailVars = [
                 'customer_email' => $customerEmail,
                 'product_name'   => $productName,
-                'message'        => $this->reminderHelper->getDefaultMessage(),
             ];
 
             /* 4. Compose and send */
             $storeId   = $this->storeManager->getStore()->getId();
             $transport = $this->transportBuilder
-                ->setTemplateIdentifier('reminder_email_template')
+                ->setTemplateIdentifier($reminderEmailTemplateId)
                 ->setTemplateOptions([
                     'area'  => Area::AREA_FRONTEND,
                     'store' => $storeId
