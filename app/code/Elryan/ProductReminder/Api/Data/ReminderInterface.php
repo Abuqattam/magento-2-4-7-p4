@@ -11,10 +11,9 @@ interface ReminderInterface
     const STATUS = 'status';
 
     /**
-     * Get ID
-     *
-     * @return int|null
+     * @return mixed
      */
+
     public function getId();
 
     /**

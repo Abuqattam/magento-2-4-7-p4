@@ -8,15 +8,22 @@ use Magento\Framework\Model\AbstractModel;
 
 class Reminder extends AbstractModel implements ReminderInterface
 {
+
     protected function _construct(): void
     {
         $this->_init(ReminderResource::class);
     }
 
-    public function getId(): ?int
+
+    public function getId()
     {
         return $this->getData(self::ID);
     }
+
+    /**
+     * @param $id
+     * @return $this|Reminder
+     */
 
     public function setId($id)
     {
@@ -24,10 +31,19 @@ class Reminder extends AbstractModel implements ReminderInterface
         return $this;
     }
 
+    /**
+     * @return int
+     */
+
     public function getCustomerId(): int
     {
         return $this->getData(self::CUSTOMER_ID);
     }
+
+    /**
+     * @param $customerId
+     * @return $this|Reminder
+     */
 
     public function setCustomerId($customerId)
     {
@@ -35,10 +51,19 @@ class Reminder extends AbstractModel implements ReminderInterface
         return $this;
     }
 
+    /**
+     * @return int
+     */
+
     public function getProductId(): int
     {
         return $this->getData(self::PRODUCT_ID);
     }
+
+    /**
+     * @param $productId
+     * @return $this|Reminder
+     */
 
     public function setProductId($productId)
     {
@@ -46,10 +71,19 @@ class Reminder extends AbstractModel implements ReminderInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+
     public function getReminderDate(): string
     {
         return $this->getData(self::REMINDER_DATE);
     }
+
+    /**
+     * @param $reminderDate
+     * @return $this|Reminder
+     */
 
     public function setReminderDate($reminderDate)
     {
@@ -57,13 +91,20 @@ class Reminder extends AbstractModel implements ReminderInterface
         return $this;
     }
 
-    // Getter for Status
+    /**
+     * @return string
+     */
+
     public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
 
-    // Setter for Status
+    /**
+     * @param $status
+     * @return $this|Reminder
+     */
+
     public function setStatus($status)
     {
         $this->setData(self::STATUS, $status);
