@@ -43,7 +43,7 @@ class SendReminders
             // Select reminders for today
             $select = $connection->select()
                 ->from($reminderTable)
-                ->where('reminder_date = ?', $currentDate)
+                ->where('reminder_date <= ?', $currentDate)
                 ->where('status = ?', 'Pending');
 
             $reminders = $connection->fetchAll($select);
