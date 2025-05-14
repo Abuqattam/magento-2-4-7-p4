@@ -70,4 +70,16 @@ class ReminderRepository implements ReminderRepositoryInterface
         $reminder = $this->getById($id);
         return $this->delete($reminder);
     }
+
+
+    public function getList(array $criteria): array
+    {
+        $collection = $this->collectionFactory->create();
+
+        foreach ($criteria as $field => $value) {
+            $collection->addFieldToFilter($field, $value);
+        }
+
+        return $collection->getItems();
+    }
 }
