@@ -1,31 +1,88 @@
-The README.md file content is generated automatically, see [Magento module README.md](https://github.com/magento/devdocs/wiki/Magento-module-README.md) for more information.
+# Elryan_ProductReminder Module
 
-# Elryan_ProductReminder module
+This Magento 2 module provides a feature for reminding customers about specific products they are interested in. It includes backend configuration options and REST API endpoints to manage product reminders.
 
-This Module is to remind the customer for certain product or products
+## Installation
 
-## Installation details
+To install the Elryan_ProductReminder module, follow these steps:
 
-For information about a module installation in Magento 2, see [Enable or disable modules](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-enable.html).
+1. **Download the Module**  
+   Clone or download the module files into your Magento 2 installation directory under app/code/Elryan/ProductReminder.
 
-## Extensibility
+2. **Navigate to Magento Root Directory**  
+   Make sure you are in the root directory of your Magento installation before running any Magento CLI commands:
 
-Extension developers can interact with the Elryan_ProductReminder module. For more information about the Magento extension mechanism, see [Magento plug-ins](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html).
+3. **Enable the Module**  
+   Run the following Magento CLI commands:
+   ```bash
+   php bin/magento module:enable Elryan_ProductReminder
+   php bin/magento setup:upgrade
+   php bin/magento cache:flush
+   php bin/magento setup:di:compile
+   php bin/magento setup:static-content:deploy -f
+   ```
 
-[The Magento dependency injection mechanism](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Elryan_ProductReminder module.
+4. **Verify the Installation**  
+   Confirm the module is active by running:
+   ```bash
+   php bin/magento module:status | grep Elryan_ProductReminder
+   ```
 
-### Layouts
+5. **Configure the Module**  
+   In the Magento Admin Panel, go to **Stores** -> **Configuration** -> **General** -> **Product Reminder**. You will find the following settings:
+    - **Enable Module**: Enable or disable the module functionality.
+    - **Reminder Email Template**: Choose the email template for reminder notifications.
 
-The module introduces layout handles in the `view/adminhtml/layout` directory.
+## REST API Endpoints
 
-For more information about a layout in Magento 2, see the [Layout documentation](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-overview.html).
+The Elryan_ProductReminder module exposes the following REST API endpoints for managing customer product reminders:
 
-### UI components
+### 1. Set Reminder
+**Endpoint:** `POST /V1/product-reminder`  
+**Description:** Set a reminder for a specific product.  
+**Payload:**
+```json
+{
+  "customer_id": 123,
+  "product_id": 456,
+  "reminder_date": "2024-12-25"
+}
+```
+**Validation:**
+- The `reminder_date` must be in the future.
+- The customer and product must exist in the Magento database.
 
-You can extend product and category updates using the UI components located in the `view/adminhtml/ui_component` directory.
+### 2. Get All Reminders for a Customer
+**Endpoint:** `GET /V1/product-reminder/{customer_id}`  
+**Description:** Retrieve all reminders for a specific customer.  
+**Response Example:**
+```json
+[
+  {
+    "id": 1,
+    "product_id": 456,
+    "reminder_date": "2024-12-25",
+    "status": "Pending"
+  }
+]
+```
 
-For information about a UI component in Magento 2, see [Overview of UI components](https://devdocs.magento.com/guides/v2.4/ui_comp_guide/bk-ui_comps.html).
+### 3. Delete a Reminder
+**Endpoint:** `DELETE /V1/product-reminder/{id}`  
+**Description:** Remove a specific reminder by its ID.
 
-## Additional information
+## Database Table
 
-For information about significant changes in patch releases, see [Release information](https://devdocs.magento.com/guides/v2.4/release-notes/bk-release-notes.html).
+The module uses a custom table `product_reminder` to store reminder information. Ensure this table is properly created during the module setup.
+
+## Additional Resources
+
+- [Magento Module Development Guide](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/bk-extension-dev-guide.html)
+- [Magento Dependency Injection](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html)
+- [Magento REST API Overview](https://devdocs.magento.com/guides/v2.4/rest/bk-rest.html)
+
+## License
+This module is open-source and distributed under the MIT License.
+
+## Support
+For support or contribution requests, please contact the module author or create a pull request in the repository.
