@@ -2,9 +2,9 @@
 
 namespace Elryan\ProductReminder\Model;
 
-use Magento\Framework\Model\AbstractModel;
-use Elryan\ProductReminder\Model\ResourceModel\Reminder as ReminderResource;
 use Elryan\ProductReminder\Api\Data\ReminderInterface;
+use Elryan\ProductReminder\Model\ResourceModel\Reminder as ReminderResource;
+use Magento\Framework\Model\AbstractModel;
 
 class Reminder extends AbstractModel implements ReminderInterface
 {
@@ -18,45 +18,43 @@ class Reminder extends AbstractModel implements ReminderInterface
         return $this->getData(self::ID);
     }
 
-    public function setId($id): static
+    public function setId($id)
     {
-        return $this->setData(self::ID, $id);
+        $this->setData(self::ID, $id);
+        return $this;
     }
-
 
     public function getCustomerId(): int
     {
         return $this->getData(self::CUSTOMER_ID);
     }
 
-
     public function setCustomerId($customerId)
     {
-        return $this->setData(self::CUSTOMER_ID, $customerId);
+        $this->setData(self::CUSTOMER_ID, $customerId);
+        return $this;
     }
-
 
     public function getProductId(): int
     {
         return $this->getData(self::PRODUCT_ID);
     }
 
-
-    public function setProductId($productId): static
+    public function setProductId($productId)
     {
-        return $this->setData(self::PRODUCT_ID, $productId);
+        $this->setData(self::PRODUCT_ID, $productId);
+        return $this;
     }
-
 
     public function getReminderDate(): string
     {
         return $this->getData(self::REMINDER_DATE);
     }
 
-
     public function setReminderDate($reminderDate)
     {
-        return $this->setData(self::REMINDER_DATE, $reminderDate);
+        $this->setData(self::REMINDER_DATE, $reminderDate);
+        return $this;
     }
 
     // Getter for Status
@@ -66,8 +64,9 @@ class Reminder extends AbstractModel implements ReminderInterface
     }
 
     // Setter for Status
-    public function setStatus($status): static
+    public function setStatus($status)
     {
-        return $this->setData(self::STATUS, $status);
+        $this->setData(self::STATUS, $status);
+        return $this;
     }
 }

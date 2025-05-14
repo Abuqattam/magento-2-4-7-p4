@@ -20,10 +20,10 @@ interface ReminderInterface
     /**
      * Set ID
      *
-     * @param int $id
+     * @param $id
      * @return $this
      */
-    public function setId($id): static;
+    public function setId($id);
 
     /**
      * Get Customer ID
