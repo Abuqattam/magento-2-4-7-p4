@@ -37,6 +37,8 @@ To install the Elryan_ProductReminder module, follow these steps:
 
 The Elryan_ProductReminder module exposes the following REST API endpoints for managing customer product reminders:
 
+- make sure to create the bearer token from ACL [Reminder] -> [Reminder Control]
+
 ### 1. Set Reminder
 **Endpoint:** `POST /V1/product-reminder`  
 **Description:** Set a reminder for a specific product.  
@@ -75,14 +77,17 @@ The Elryan_ProductReminder module exposes the following REST API endpoints for m
 
 The module uses a custom table `product_reminder` to store reminder information. Ensure this table is properly created during the module setup.
 
+## My Approach
+
+I decided to do couple of things I see it's better this way and more compatible with magento structure
+
+- Notify if the reminder date is less than a week away, including both old and current records.
+- Implementing custom Logger so we can track the process of cronjob 
+- the configuration now have email dropdown email list instead of only message box, this will help the marketing team to make something more creative if they like to do so. if not default email template will be used
+- 
+
 ## Additional Resources
 
 - [Magento Module Development Guide](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/bk-extension-dev-guide.html)
 - [Magento Dependency Injection](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html)
 - [Magento REST API Overview](https://devdocs.magento.com/guides/v2.4/rest/bk-rest.html)
-
-## License
-This module is open-source and distributed under the MIT License.
-
-## Support
-For support or contribution requests, please contact the module author or create a pull request in the repository.
