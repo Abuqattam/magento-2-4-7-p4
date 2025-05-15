@@ -32,6 +32,8 @@ To install the Elryan_ProductReminder module, follow these steps:
    In the Magento Admin Panel, go to **Stores** -> **Configuration** -> **General** -> **Product Reminder**. You will find the following settings:
     - **Enable Module**: Enable or disable the module functionality.
     - **Reminder Email Template**: Choose the email template for reminder notifications.
+   > **📝 Note:** SMTP sender email needs to be set in Stores -> Configurations -> General -> Store Email Addresses -> General Contact -> Sender Email
+
 
 ## REST API Endpoints
 
@@ -73,6 +75,19 @@ The Elryan_ProductReminder module exposes the following REST API endpoints for m
 **Endpoint:** `DELETE /V1/product-reminder/{id}`  
 **Description:** Remove a specific reminder by its ID.
 
+## Cronjob
+
+- make sure to have the default magento SMTP set in Stores -> Configuration -> Advance -> System -> Mail Sending Settings
+
+Make sure Magento's cron configuration is set up correctly. Check the cron jobs by running:
+```bash
+php bin/magento cron:install
+```
+To quickly test the cron job, run:
+```bash
+php bin/magento cron:run
+```
+
 ## Database Table
 
 The module uses a custom table `product_reminder` to store reminder information. Ensure this table is properly created during the module setup.
@@ -84,7 +99,7 @@ I decided to do couple of things I see it's better this way and more compatible 
 - Notify if the reminder date is less than a week away, including both old and current records.
 - Implementing custom Logger so we can track the process of cronjob 
 - the configuration now have email dropdown email list instead of only message box, this will help the marketing team to make something more creative if they like to do so. if not default email template will be used
-- 
+- using Magento Store Email Addresses (General) it is the best practice, instead of having custom field for it 
 
 ## Additional Resources
 
